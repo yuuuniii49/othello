@@ -11,7 +11,7 @@ int try_flip(int x, int y);	// 뒤집기를 시도하는 함수 선언
 void game_result(void);		// 게임의 결과 확인을 위한 함수 선언 
 
 int main(void)  {
-	int user_x, user_y, turn=0, cnt;
+	int user_x, user_y, turn=0, cnt;  //입력좌표 : user_x, user_y 
 	
 	init_game(); // 게임 초기화 
 	
@@ -56,7 +56,7 @@ void init_game() {
 	printf("======================\n\n");
 	for(i=0; i<N; i++) {
 		for(j=0; j<N; j++) {
-			gameboard[i][j] = '.';
+			gameboard[i][j] = ' ';
 		}
 	}
 	gameboard[N/2][N/2] = 'O';
@@ -68,12 +68,38 @@ void init_game() {
 
 // 보드판 출력 
 void print_board(void) {
-	int i, j, k=0;
+	int i, j, k=0, s; // k:상단 숫자출력을 위한 변수
+	int cnt_O=0, cnt_X=0;
 	printf(" ");
 	for(k=0; k<N; k++) {
 		printf(" %d", k);
 	}
+	printf("\n  ");
+	
+	// 게임판의 숫자 아래 가로줄 출력 
+	for (s=0; s<2*N; s++) {
+		printf("-");
+	}
 	printf("\n");
+	
+	for(i=0; i<N; i++) {
+		printf("%d|", i);
+		
+	// 게임판의 세로줄 출력 
+	for(j=0; j<N; j++) {
+		printf("%c|", gameboard[i][j]);
+		}
+	printf("\n  ");
+		
+	// 게임판의 각 가로줄 출력 
+	for (s=0; s<2*N; s++) {
+	printf("-");
+	}
+	printf("\n");
+		
+	}
+	printf("\n");
+	
 	for(i=0; i<N; i++) {
 		printf("%d ", i);
 		for(j=0; j<N; j++) {
@@ -90,7 +116,7 @@ int check_board(void)  {
 	int i, j, flag=0;
 	for(i=0; i<N; i++) {
 		for(j=0; j<N; j++) {
-			if (gameboard[i][j] == '.') {
+			if (gameboard[i][j] == ' ') {
 				flag = 1;
 				break;
 			}
@@ -123,56 +149,56 @@ int try_flip(int x, int y) {
 	int cnt=0;
 	
 	// 왼쪽 위  
-	if((gameboard[x-2][y-2] == gameboard[x][y]) && (gameboard[x-1][y-1] != '.')) {
+	if((gameboard[x-2][y-2] == gameboard[x][y]) && (gameboard[x-1][y-1] != ' ')) {
 		if (gameboard[x-1][y-1] == 'O') gameboard[x-1][y-1] = 'X';
 		else gameboard[x-1][y-1] = 'O';
 		cnt++;
 	}
 	
 	// 위 
-	if((gameboard[x-2][y] == gameboard[x][y]) && (gameboard[x-1][y] != '.')) {
+	if((gameboard[x-2][y] == gameboard[x][y]) && (gameboard[x-1][y] != ' ')) {
 		if (gameboard[x-1][y] == 'O') gameboard[x-1][y] = 'X';
 		else gameboard[x-1][y] = 'O';
 		cnt++;
 	}
 	
 	// 오른쪽 위 
-	if((gameboard[x-2][y+2] == gameboard[x][y]) && (gameboard[x-1][y+1] != '.')) {
+	if((gameboard[x-2][y+2] == gameboard[x][y]) && (gameboard[x-1][y+1] != ' ')) {
 		if (gameboard[x-1][y+1] == 'O') gameboard[x-1][y+1] = 'X';
 		else gameboard[x-1][y+1] = 'O';
 		cnt++;
 	}
 	
 	// 왼쪽 
-	if((gameboard[x][y-2] == gameboard[x][y]) && (gameboard[x][y-1] != '.')) {
+	if((gameboard[x][y-2] == gameboard[x][y]) && (gameboard[x][y-1] != ' ')) {
 		if (gameboard[x][y-1] == 'O') gameboard[x][y-1] = 'X';
 		else gameboard[x][y-1] = 'O';
 		cnt++;
 	}
 	
 	// 오른쪽 
-	if((gameboard[x][y+2] == gameboard[x][y]) && (gameboard[x][y+1] != '.')) {
+	if((gameboard[x][y+2] == gameboard[x][y]) && (gameboard[x][y+1] != ' ')) {
 		if (gameboard[x][y+1] == 'O') gameboard[x][y+1] = 'X';
 		else gameboard[x][y+1] = 'O';
 		cnt++;
 	}
 	
 	// 왼쪽 아래 
-	if((gameboard[x+2][y-2] == gameboard[x][y]) && (gameboard[x+1][y-1] != '.')) {
+	if((gameboard[x+2][y-2] == gameboard[x][y]) && (gameboard[x+1][y-1] != ' ')) {
 		if (gameboard[x+1][y-1] == 'O') gameboard[x+1][y-1] = 'X';
 		else gameboard[x+1][y-1] = 'O';
 		cnt++;
 	}
 	
 	// 아래 
-	if((gameboard[x+2][y] == gameboard[x][y]) && (gameboard[x+1][y] != '.')) {
+	if((gameboard[x+2][y] == gameboard[x][y]) && (gameboard[x+1][y] != ' ')) {
 		if (gameboard[x+1][y] == 'O') gameboard[x+1][y] = 'X';
 		else gameboard[x+1][y] = 'O';
 		cnt++;
 	}	
 	
 	// 오른쪽  아래 
-	if((gameboard[x+2][y+2] == gameboard[x][y]) && (gameboard[x+1][y+1] != '.')) {
+	if((gameboard[x+2][y+2] == gameboard[x][y]) && (gameboard[x+1][y+1] != ' ')) {
 		if (gameboard[x+1][y+1] == 'O') gameboard[x+1][y+1] = 'X';
 		else gameboard[x+1][y+1] = 'O';
 		cnt++;
