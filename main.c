@@ -153,70 +153,85 @@ int possible(int x, int y) {
 	return flag;
 }
 
-
 // 뒤집기 시도
 int try_flip(int x, int y) {
 	int cnt=0;
 	
-	// 왼쪽 위  
-	if((gameboard[x-2][y-2] == gameboard[x][y]) && (gameboard[x-1][y-1] != ' ')) {
+	// 왼쪽 위  NW
+	if((gameboard[x-2][y-2] == gameboard[x][y]) && (gameboard[x-1][y-1] != ' ') && (gameboard[x-1][y-1] != gameboard[x][y])) {
 		if (gameboard[x-1][y-1] == 'O') gameboard[x-1][y-1] = 'X';
 		else gameboard[x-1][y-1] = 'O';
+		printf("NW:1, ");
 		cnt++;
 	}
+	else printf("NW:0, ");
 	
-	// 위 
-	if((gameboard[x-2][y] == gameboard[x][y]) && (gameboard[x-1][y] != ' ')) {
+	// 위 N
+	if((gameboard[x-2][y] == gameboard[x][y]) && (gameboard[x-1][y] != ' ') && (gameboard[x-1][y] != gameboard[x][y])) {
 		if (gameboard[x-1][y] == 'O') gameboard[x-1][y] = 'X';
 		else gameboard[x-1][y] = 'O';
+		printf("N:1, ");
 		cnt++;
 	}
+	else printf("N:0, ");
 	
-	// 오른쪽 위 
-	if((gameboard[x-2][y+2] == gameboard[x][y]) && (gameboard[x-1][y+1] != ' ')) {
+	// 오른쪽 위 NE
+	if((gameboard[x-2][y+2] == gameboard[x][y]) && (gameboard[x-1][y+1] != ' ') && (gameboard[x-1][y+1] != gameboard[x][y])) {
 		if (gameboard[x-1][y+1] == 'O') gameboard[x-1][y+1] = 'X';
 		else gameboard[x-1][y+1] = 'O';
+		printf("NE:1, ");
 		cnt++;
 	}
+	else printf("NE:0, ");
 	
-	// 왼쪽 
-	if((gameboard[x][y-2] == gameboard[x][y]) && (gameboard[x][y-1] != ' ')) {
+	// 왼쪽 W
+	if((gameboard[x][y-2] == gameboard[x][y]) && (gameboard[x][y-1] != ' ') && (gameboard[x][y-1] != gameboard[x][y])) {
 		if (gameboard[x][y-1] == 'O') gameboard[x][y-1] = 'X';
 		else gameboard[x][y-1] = 'O';
+		printf("W:1, ");
 		cnt++;
 	}
+	else printf("W:0, ");
 	
-	// 오른쪽 
-	if((gameboard[x][y+2] == gameboard[x][y]) && (gameboard[x][y+1] != ' ')) {
+	// 오른쪽 E 
+	if((gameboard[x][y+2] == gameboard[x][y]) && (gameboard[x][y+1] != ' ') && (gameboard[x][y+1] != gameboard[x][y])) {
 		if (gameboard[x][y+1] == 'O') gameboard[x][y+1] = 'X';
 		else gameboard[x][y+1] = 'O';
+		printf("E:1, ");
 		cnt++;
 	}
+	else printf("E:0, ");
 	
-	// 왼쪽 아래 
-	if((gameboard[x+2][y-2] == gameboard[x][y]) && (gameboard[x+1][y-1] != ' ')) {
+	// 왼쪽 아래 SW
+	if((gameboard[x+2][y-2] == gameboard[x][y]) && (gameboard[x+1][y-1] != ' ') && (gameboard[x+1][y-1] != gameboard[x][y])) {
 		if (gameboard[x+1][y-1] == 'O') gameboard[x+1][y-1] = 'X';
 		else gameboard[x+1][y-1] = 'O';
+		printf("SW:1, ");
 		cnt++;
 	}
+	else printf("SW:0, ");
 	
-	// 아래 
-	if((gameboard[x+2][y] == gameboard[x][y]) && (gameboard[x+1][y] != ' ')) {
+	// 아래 S
+	if((gameboard[x+2][y] == gameboard[x][y]) && (gameboard[x+1][y] != ' ') && (gameboard[x+1][y] != gameboard[x][y])) {
 		if (gameboard[x+1][y] == 'O') gameboard[x+1][y] = 'X';
 		else gameboard[x+1][y] = 'O';
+		printf("S:1, ");
 		cnt++;
 	}	
+	else printf("S:0, ");
 	
-	// 오른쪽  아래 
-	if((gameboard[x+2][y+2] == gameboard[x][y]) && (gameboard[x+1][y+1] != ' ')) {
+	// 오른쪽 아래 SE
+	if((gameboard[x+2][y+2] == gameboard[x][y]) && (gameboard[x+1][y+1] != ' ') && (gameboard[x+1][y+1] != gameboard[x][y])) {
 		if (gameboard[x+1][y+1] == 'O') gameboard[x+1][y+1] = 'X';
 		else gameboard[x+1][y+1] = 'O';
+		printf("SE:1\n");
 		cnt++;
 	}
-	
+	else printf("SE:0\n");
 	
 	return cnt;
 } 
+
 // 게임의 결과 확인을 위한 함수 
 void game_result(void) {
 	int i, j;
