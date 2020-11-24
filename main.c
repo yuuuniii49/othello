@@ -137,8 +137,31 @@ int check_board(void)  {
 }
 
 int is_gameover(void) {
-	return 0;
+	int i, j, blank = 0;
+	int cnt_O=0, cnt_X=0;
+	int possible=0;
+	
+	for (i=0; i<N; i++) {
+		for (j=0; j<N; j++) {
+			if (gameboard[i][j] == ' ') blank++;
+			if (gameboard[i][j] == 'O') cnt_O++;
+			if (gameboard[i][j] == 'X') cnt_X++;
+			/*
+			if ((gameboard[i-2][j-2] == gameboard[i][j]) && (gameboard[i-1][j-1] != ' ') && (gameboard[i-1][j-1] != gameboard[i][j])) possible++;
+			if ((gameboard[i-2][j] == gameboard[i][j]) && (gameboard[i-1][j] != ' ') && (gameboard[i-1][j] != gameboard[i][j])) possible++;
+			if ((gameboard[i-2][j+2] == gameboard[i][j]) && (gameboard[i-1][j+1] != ' ') && (gameboard[i-1][j+1] != gameboard[i][j])) possible++;
+			if ((gameboard[i][j-2] == gameboard[i][j]) && (gameboard[i][j-1] != ' ') && (gameboard[i][j-1] != gameboard[i][j])) possible++;
+			if ((gameboard[i][j+2] == gameboard[i][j]) && (gameboard[i][j+1] != ' ') && (gameboard[i][j+1] != gameboard[i][j])) possible++;
+			if ((gameboard[i+2][j-2] == gameboard[i][j]) && (gameboard[i+1][j-1] != ' ') && (gameboard[i+1][j-1] != gameboard[i][j])) possible++;
+			if ((gameboard[i+2][j] == gameboard[i][j]) && (gameboard[i+1][j] != ' ') && (gameboard[i+1][j] != gameboard[i][j])) possible++;
+			if ((gameboard[i+2][j+2] == gameboard[i][j]) && (gameboard[i+1][j+1] != ' ') && (gameboard[i+1][j+1] != gameboard[i][j])) possible++;
+			*/
+		}
+	}
+	if (blank == 0 || cnt_O == 0 || cnt_X == 0 || possible == 0) return 1;
+	else return 0;
 }
+
 
 // 입력좌표가 적절한지를 판단하는 함수
 // 적절한 입력이라면 1을, 그렇지 않으면 0을 반환 
