@@ -8,6 +8,7 @@ int is_gameover(void);		// 게임의 종료를 판정하는 함수 선언
 int check_board(void);		// 배치 가능한 칸이 있는지 확인하는 함수 선언 
 int possible(int x, int y);	// 입력좌표가 적절한지를 판단하는 함수 선언 
 int try_flip(int x, int y);	// 뒤집기를 시도하는 함수 선언 
+void game_result(void);		// 게임의 결과 확인을 위한 함수 선언 
 
 int main(void)  {
 	int user_x, user_y, turn=0, cnt;
