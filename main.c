@@ -23,10 +23,10 @@ int main(void)  {
 		
 		// 어느 돌이 놓을 차례인지를 출력 
 		if (turn % 2 == 0) {
-			printf("O가 놓을 차례입니다. ");
+			printf("white 가 놓을 차례입니다. ");
 		}
 		else {
-			printf("X가 놓을 차례입니다. ");
+			printf("black 이  놓을 차례입니다. ");
 		}
 		
 		printf("놓을 좌표를 입력하세요 : ");
@@ -35,13 +35,13 @@ int main(void)  {
 			if (turn % 2 == 0) {
 				gameboard[user_x][user_y] = 'O';
 				cnt = try_flip(user_x, user_y);
-				printf("%d개를 뒤집었습니다.\n\n", cnt);
+				printf("white가 %d개를 뒤집었습니다.\n\n", cnt);
 				turn++;	
 			}
 			else {
 				gameboard[user_x][user_y] = 'X';
 				cnt = try_flip(user_x, user_y);
-				printf("%d개를 뒤집었습니다.\n\n", cnt);
+				printf("black이 %d개를 뒤집었습니다.\n\n", cnt);
 				turn++;
 			}
 		}
@@ -116,7 +116,7 @@ void print_board(void) {
 			else if (gameboard[i][j] == 'X') cnt_X++;
 		}
 	}
-	printf("STATUS - O : %d, X : %d\n\n", cnt_O, cnt_X);
+	printf("STATUS - white : %d, black : %d\n\n", cnt_O, cnt_X);
 	
 }
 	
