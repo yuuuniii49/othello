@@ -181,3 +181,22 @@ int try_flip(int x, int y) {
 	
 	return cnt;
 } 
+// 게임의 결과 확인을 위한 함수 
+void game_result(void) {
+	int i, j;
+	int cnt_O = 0;
+	int cnt_X = 0;
+	
+	for (i=0; i<N; i++) {
+		for (j=0; j<N; j++) {
+			if (gameboard[i][j] == 'O') cnt_O++;
+			else if (gameboard[i][j] == 'X') cnt_X++;
+		}
+	}
+	
+	if (cnt_O > cnt_X) printf("The winner is O.\n");
+	else if (cnt_O < cnt_X) printf("The winner is X.\n");
+	else printf("The Game end in a draw.\n");
+}
+
+
