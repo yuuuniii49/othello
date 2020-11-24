@@ -147,7 +147,7 @@ int possible(int x, int y) {
 	if ((x<0 || x>N) || (y<0 || y>N)) {
 		flag = 0;
 	}
-	else if (gameboard[x][y]=='.') flag = 1;
+	else if (gameboard[x][y]==' ') flag = 1;
 	else flag = 0;
 	
 	return flag;
