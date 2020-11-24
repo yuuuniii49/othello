@@ -11,15 +11,24 @@ int try_flip(int x, int y);	// 뒤집기를 시도하는 함수 선언
 void game_result(void);		// 게임의 결과 확인을 위한 함수 선언 
 
 int main(void)  {
-	int user_x, user_y, turn=0, cnt;  //입력좌표 : user_x, user_y 
+	int user_x, user_y, turn=0, cnt;	// 입력좌표 : user_x, user_y 
 	
 	init_game(); // 게임 초기화 
 	
 	while (is_gameover() == 0) {
 		print_board();
 		if (check_board() == 0) {
-			continue;
+			break;
 		}
+		
+		// 어느 돌이 놓을 차례인지를 출력 
+		if (turn % 2 == 0) {
+			printf("O가 놓을 차례입니다. ");
+		}
+		else {
+			printf("X가 놓을 차례입니다. ");
+		}
+		
 		printf("놓을 좌표를 입력하세요 : ");
 		scanf("%d %d", &user_x, &user_y);
 		if (possible(user_x, user_y) == 1) {
@@ -42,7 +51,8 @@ int main(void)  {
 		}
 		
 	}
-	 
+	
+	game_result();	 
 	
 	return 0;
 }
@@ -68,14 +78,14 @@ void init_game() {
 
 // 보드판 출력 
 void print_board(void) {
-	int i, j, k=0, s; // k:상단 숫자출력을 위한 변수
+	int i, j, k=0, s;	// k:상단 숫자출력을 위한 변수 
 	int cnt_O=0, cnt_X=0;
 	printf(" ");
 	for(k=0; k<N; k++) {
 		printf(" %d", k);
 	}
 	printf("\n  ");
-	
+
 	// 게임판의 숫자 아래 가로줄 출력 
 	for (s=0; s<2*N; s++) {
 		printf("-");
@@ -84,32 +94,32 @@ void print_board(void) {
 	
 	for(i=0; i<N; i++) {
 		printf("%d|", i);
-		
-	// 게임판의 세로줄 출력 
-	for(j=0; j<N; j++) {
-		printf("%c|", gameboard[i][j]);
+		// 게임판의 세로줄 출력 
+		for(j=0; j<N; j++) {
+			printf("%c|", gameboard[i][j]);
 		}
-	printf("\n  ");
+		printf("\n  ");
 		
-	// 게임판의 각 가로줄 출력 
-	for (s=0; s<2*N; s++) {
-	printf("-");
-	}
-	printf("\n");
+		// 게임판의 각 가로줄 출력 
+		for (s=0; s<2*N; s++) {
+		printf("-");
+		}
+		printf("\n");
 		
 	}
 	printf("\n");
 	
-	for(i=0; i<N; i++) {
-		printf("%d ", i);
-		for(j=0; j<N; j++) {
-			printf("%c ", gameboard[i][j]);
+	// 현재 게임판의 상황을 출력 
+	for (i=0; i<N; i++) {
+		for (j=0; j<N; j++) {
+			if (gameboard[i][j] == 'O') cnt_O++;
+			else if (gameboard[i][j] == 'X') cnt_X++;
 		}
-		printf("\n");
 	}
-	printf("\n");
+	printf("STATUS - O : %d, X : %d\n\n", cnt_O, cnt_X);
+	
 }
-
+	
 // 배치 가능한 칸이 있는지 확인
 // 가능한 칸이 있다면 1을, 없다면 0을 반환 
 int check_board(void)  {
