@@ -1,10 +1,11 @@
 #include <stdio.h> 
 #define N 10
+
 char gameboard[N][N];	 
 
 void init_game(void);		// 게임 초기화 함수 선언 
 void print_board(void);		// 게임판 출력 함수 선언
-int is_gameover(void);		// 게임의 종료를 판정하는 함수 선언 
+int is_gameover(int a);		// 게임의 종료를 판정하는 함수 선언 
 int check_board(void);		// 배치 가능한 칸이 있는지 확인하는 함수 선언 
 int possible(int x, int y);	// 입력좌표가 적절한지를 판단하는 함수 선언 
 int try_flip(int x, int y);	// 뒤집기를 시도하는 함수 선언 
@@ -15,7 +16,7 @@ int main(void)  {
 	
 	init_game(); // 게임 초기화 
 	
-	while (is_gameover() == 0) {
+	while (is_gameover(turn) == 0) {
 		print_board();
 		if (check_board() == 0) {
 			break;
@@ -23,10 +24,10 @@ int main(void)  {
 		
 		// 어느 돌이 놓을 차례인지를 출력 
 		if (turn % 2 == 0) {
-			printf("white 가 놓을 차례입니다. ");
+			printf("White가 놓을 차례입니다. ");
 		}
 		else {
-			printf("black 이  놓을 차례입니다. ");
+			printf("Black이 놓을 차례입니다. ");
 		}
 		
 		printf("놓을 좌표를 입력하세요 : ");
@@ -35,13 +36,13 @@ int main(void)  {
 			if (turn % 2 == 0) {
 				gameboard[user_x][user_y] = 'O';
 				cnt = try_flip(user_x, user_y);
-				printf("white가 %d개를 뒤집었습니다.\n\n", cnt);
+				printf("White가 %d개를 뒤집었습니다.\n\n", cnt);
 				turn++;	
 			}
 			else {
 				gameboard[user_x][user_y] = 'X';
 				cnt = try_flip(user_x, user_y);
-				printf("black이 %d개를 뒤집었습니다.\n\n", cnt);
+				printf("Black이 %d개를 뒤집었습니다.\n\n", cnt);
 				turn++;
 			}
 		}
@@ -116,10 +117,10 @@ void print_board(void) {
 			else if (gameboard[i][j] == 'X') cnt_X++;
 		}
 	}
-	printf("STATUS - white : %d, black : %d\n\n", cnt_O, cnt_X);
+	printf("STATUS - White : %d, Black : %d\n\n", cnt_O, cnt_X);
 	
 }
-	
+
 // 배치 가능한 칸이 있는지 확인
 // 가능한 칸이 있다면 1을, 없다면 0을 반환 
 int check_board(void)  {
@@ -130,38 +131,43 @@ int check_board(void)  {
 				flag = 1;
 				break;
 			}
+		if (flag == 1) break;
 		}
 	if (flag == 1) return 1;
 	else return 0;
 	}
 }
 
-int is_gameover(void) {
+int is_gameover(int a) {
 	int i, j, blank = 0;
 	int cnt_O=0, cnt_X=0;
 	int possible=0;
+	char stone;
+	
+	if (a % 2 == 0) stone = 'O';
+	else stone = 'X';
 	
 	for (i=0; i<N; i++) {
 		for (j=0; j<N; j++) {
 			if (gameboard[i][j] == ' ') blank++;
 			if (gameboard[i][j] == 'O') cnt_O++;
 			if (gameboard[i][j] == 'X') cnt_X++;
-			/*
-			if ((gameboard[i-2][j-2] == gameboard[i][j]) && (gameboard[i-1][j-1] != ' ') && (gameboard[i-1][j-1] != gameboard[i][j])) possible++;
-			if ((gameboard[i-2][j] == gameboard[i][j]) && (gameboard[i-1][j] != ' ') && (gameboard[i-1][j] != gameboard[i][j])) possible++;
-			if ((gameboard[i-2][j+2] == gameboard[i][j]) && (gameboard[i-1][j+1] != ' ') && (gameboard[i-1][j+1] != gameboard[i][j])) possible++;
-			if ((gameboard[i][j-2] == gameboard[i][j]) && (gameboard[i][j-1] != ' ') && (gameboard[i][j-1] != gameboard[i][j])) possible++;
-			if ((gameboard[i][j+2] == gameboard[i][j]) && (gameboard[i][j+1] != ' ') && (gameboard[i][j+1] != gameboard[i][j])) possible++;
-			if ((gameboard[i+2][j-2] == gameboard[i][j]) && (gameboard[i+1][j-1] != ' ') && (gameboard[i+1][j-1] != gameboard[i][j])) possible++;
-			if ((gameboard[i+2][j] == gameboard[i][j]) && (gameboard[i+1][j] != ' ') && (gameboard[i+1][j] != gameboard[i][j])) possible++;
-			if ((gameboard[i+2][j+2] == gameboard[i][j]) && (gameboard[i+1][j+1] != ' ') && (gameboard[i+1][j+1] != gameboard[i][j])) possible++;
-			*/
+			
+			// 뒤집을 수 있는 것이 있는지를 판단 
+			if ((gameboard[i-2][j-2] == stone) && (gameboard[i-1][j-1] != ' ') && (gameboard[i-1][j-1] != stone)) possible++;
+			if ((gameboard[i-2][j] == stone) && (gameboard[i-1][j] != ' ') && (gameboard[i-1][j] != stone)) possible++;
+			if ((gameboard[i-2][j+2] == stone) && (gameboard[i-1][j+1] != ' ') && (gameboard[i-1][j+1] != stone)) possible++;
+			if ((gameboard[i][j-2] == stone) && (gameboard[i][j-1] != ' ') && (gameboard[i][j-1] != stone)) possible++;
+			if ((gameboard[i][j+2] == stone) && (gameboard[i][j+1] != ' ') && (gameboard[i][j+1] != stone)) possible++;
+			if ((gameboard[i+2][j-2] == stone) && (gameboard[i+1][j-1] != ' ') && (gameboard[i+1][j-1] != stone)) possible++;
+			if ((gameboard[i+2][j] == stone) && (gameboard[i+1][j] != ' ') && (gameboard[i+1][j] != stone)) possible++;
+			if ((gameboard[i+2][j+2] == stone) && (gameboard[i+1][j+1] != ' ') && (gameboard[i+1][j+1] != stone)) possible++;
+			
 		}
 	}
 	if (blank == 0 || cnt_O == 0 || cnt_X == 0 || possible == 0) return 1;
 	else return 0;
 }
-
 
 // 입력좌표가 적절한지를 판단하는 함수
 // 적절한 입력이라면 1을, 그렇지 않으면 0을 반환 
@@ -267,9 +273,10 @@ void game_result(void) {
 			else if (gameboard[i][j] == 'X') cnt_X++;
 		}
 	}
+	print_board();
 	
-	if (cnt_O > cnt_X) printf("The winner is O.\n");
-	else if (cnt_O < cnt_X) printf("The winner is X.\n");
+	if (cnt_O > cnt_X) printf("The winner is white.\n");
+	else if (cnt_O < cnt_X) printf("The winner is black.\n");
 	else printf("The Game end in a draw.\n");
 }
 
