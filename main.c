@@ -47,8 +47,10 @@ int main(void)  {
 			}
 		}
 		else {
-			printf("\n잘못된 입력입니다. 다시 입력하세요.\n\n");
-			continue;
+			//printf("\n잘못된 입력입니다. 다시 입력하세요.\n\n");
+			//continue;
+			printf("잘못된 입력으로 패스됩니다.\n");
+			turn++;
 		}
 		
 	}
