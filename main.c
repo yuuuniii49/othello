@@ -1,5 +1,5 @@
 #include <stdio.h> 
-#define N 10
+#define N 6
 
 char gameboard[N][N];	 
 
@@ -185,7 +185,8 @@ int possible(int x, int y) {
 }
 
 // 뒤집기 시도
-int try_flip(int x, int y) {
+	
+	int try_flip(int x, int y) {
 	int cnt=0;
 	
 	// 왼쪽 위  NW
